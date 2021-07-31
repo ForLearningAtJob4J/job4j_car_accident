@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Service
 public class AccidentService {
-    private AccidentMem storage;
+    private final AccidentMem storage;
 
     @Autowired
     public AccidentService(AccidentMem storage) {
