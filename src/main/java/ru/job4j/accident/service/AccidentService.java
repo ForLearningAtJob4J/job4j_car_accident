@@ -6,6 +6,7 @@ import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.repository.AccidentMem;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccidentService {
@@ -14,6 +15,18 @@ public class AccidentService {
     @Autowired
     public AccidentService(AccidentMem storage) {
         this.storage = storage;
+    }
+
+    public Accident add(Accident accident) {
+        if (accident.getId() == 0) {
+            return storage.add(accident);
+        } else {
+            return storage.edit(accident);
+        }
+    }
+
+    public Optional<Accident> findById(int id) {
+        return Optional.of(storage.findById(id));
     }
 
     public List<Accident> getAll() {

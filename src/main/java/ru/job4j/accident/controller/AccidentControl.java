@@ -7,30 +7,32 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.accident.model.Accident;
-import ru.job4j.accident.repository.AccidentMem;
+import ru.job4j.accident.service.AccidentService;
 
 @Controller
 public class AccidentControl {
-    private final AccidentMem accidents;
+    private final AccidentService service;
 
-    public AccidentControl(AccidentMem accidents) {
-        this.accidents = accidents;
+    public AccidentControl(AccidentService service) {
+        this.service = service;
     }
 
     @GetMapping("/create")
-    public String create() {
-        return "accident/create";
+    public String create(Model model) {
+        model.addAttribute("accident", new Accident("", "", "").setId(0));
+        return "accident/edit";
     }
 
     @GetMapping("/update")
     public String update(@RequestParam("id") int id, Model model) {
-        model.addAttribute("accident", accidents.findById(id).get());
-        return "accident/update";
+        service.findById(id)
+                .ifPresent(accident -> model.addAttribute("accident", accident));
+        return "accident/edit";
     }
 
     @PostMapping("/save")
     public String save(@ModelAttribute Accident accident) {
-        accidents.add(accident);
+        service.add(accident);
         return "redirect:/";
     }
 }

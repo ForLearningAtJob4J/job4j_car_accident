@@ -25,8 +25,13 @@ public class AccidentMem {
         return accident;
     }
 
-    public Optional<Accident> findById(int id) {
-        return Optional.of(accidents.get(id));
+    public Accident edit(Accident accident) {
+        accidents.put(accident.getId(), accident);
+        return accident;
+    }
+
+    public Accident findById(int id) {
+        return accidents.get(id);
     }
 
     public List<Accident> getAll() {
