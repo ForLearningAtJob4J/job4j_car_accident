@@ -6,6 +6,7 @@
     <title>Accident App</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <div class="container pt-3">
@@ -18,6 +19,7 @@
             <th scope="col">Заголовок</th>
             <th scope="col">Описание</th>
             <th scope="col">Адрес</th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody class="table-hover">
@@ -31,6 +33,9 @@
                 </td>
                 <td>
                     <c:out value="${accident.value.address}"/>
+                </td>
+                <td>
+                    <a href="<c:url value='/update?id=${accident.value.id}'/>"><i class="fa fa-edit mr-3"></i></a>
                 </td>
             </tr>
         </c:forEach>
