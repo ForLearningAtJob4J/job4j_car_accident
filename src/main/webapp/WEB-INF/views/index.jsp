@@ -26,16 +26,16 @@
         <c:forEach items="${list}" var="accident">
             <tr>
                 <td>
-                    <c:out value="${accident.value.name}"/>
+                    <c:out value="${accident.name}"/>
                 </td>
                 <td>
-                    <c:out value="${accident.value.text}"/>
+                    <c:out value="${accident.text}"/>
                 </td>
                 <td>
-                    <c:out value="${accident.value.address}"/>
+                    <c:out value="${accident.address}"/>
                 </td>
                 <td>
-                    <a href="<c:url value='/update?id=${accident.value.id}'/>"><i class="fa fa-edit mr-3"></i></a>
+                    <a href="<c:url value='/update?id=${accident.id}'/>"><i class="fa fa-edit mr-3"></i></a>
                 </td>
             </tr>
         </c:forEach>

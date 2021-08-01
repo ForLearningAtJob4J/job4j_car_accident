@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.repository.AccidentMem;
 
-import java.util.Map;
+import java.util.List;
 
 @Service
 public class AccidentService {
@@ -16,7 +16,7 @@ public class AccidentService {
         this.storage = storage;
     }
 
-    public Map<Integer, Accident> getAll() {
+    public List<Accident> getAll() {
         return storage.getAll();
     }
 }
