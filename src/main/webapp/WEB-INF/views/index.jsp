@@ -16,17 +16,23 @@
     <table class="table align-content-center table-bordered">
         <thead class="table-dark">
         <tr>
-            <th scope="col">Заголовок</th>
+            <th scope="col">Название</th>
+            <th scope="col">Тип</th>
             <th scope="col">Описание</th>
             <th scope="col">Адрес</th>
             <th scope="col"></th>
         </tr>
         </thead>
         <tbody class="table-hover">
-        <c:forEach items="${list}" var="accident">
+        <c:forEach items="${accidents}" var="accident">
             <tr>
                 <td>
                     <c:out value="${accident.name}"/>
+                </td>
+                <td>
+                    <c:out value="${accident.type}"/><br/>
+                    <c:out value="${accident.type.id}"/><br/>
+                    <c:out value="${accident.type.name}"/>
                 </td>
                 <td>
                     <c:out value="${accident.text}"/>

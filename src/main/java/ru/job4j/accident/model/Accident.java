@@ -5,12 +5,13 @@ public class Accident {
     private String name;
     private String text;
     private String address;
+    private AccidentType type;
 
-
-    public Accident(String name, String text, String address) {
+    public Accident(String name, String text, String address, AccidentType type) {
         this.name = name;
         this.text = text;
         this.address = address;
+        this.type = type;
     }
 
     public int getId() {
@@ -76,5 +77,13 @@ public class Accident {
                 + ", text='" + text + '\''
                 + ", address='" + address + '\''
                 + '}';
+    }
+
+    public AccidentType getType() {
+        return type;
+    }
+
+    public void setType(AccidentType type) {
+        this.type = type;
     }
 }

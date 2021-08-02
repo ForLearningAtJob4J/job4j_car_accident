@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.accident.model.Accident;
+import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.service.AccidentService;
 
 @Controller
@@ -19,20 +20,24 @@ public class AccidentControl {
 
     @GetMapping("/create")
     public String create(Model model) {
-        model.addAttribute("accident", new Accident("", "", "").setId(0));
+        model.addAttribute("accidentTypes", service.getAllAccidentTypes());
+        model.addAttribute("accident", new Accident("", "", "", new AccidentType()).setId(0));
         return "accident/edit";
     }
 
     @GetMapping("/update")
     public String update(@RequestParam("id") int id, Model model) {
-        service.findById(id)
+        model.addAttribute("accidentTypes", service.getAllAccidentTypes());
+        service.findAccidentById(id)
                 .ifPresent(accident -> model.addAttribute("accident", accident));
         return "accident/edit";
     }
 
     @PostMapping("/save")
     public String save(@ModelAttribute Accident accident) {
-        service.add(accident);
+        service.findAccidentTypeById(accident.getType().getId())
+                .ifPresent(accident::setType);
+        service.saveAccident(accident);
         return "redirect:/";
     }
 }

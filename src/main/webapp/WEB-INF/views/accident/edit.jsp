@@ -20,6 +20,17 @@
         </div>
 
         <div class="form-group row mb-2">
+            <label class="col-form-label col-sm-1" for="type.id">Тип</label>
+            <div class="col-sm-10">
+                <select class="form-select" name="type.id" id="type.id">
+                    <c:forEach var="typeItem" items="${accidentTypes}">
+                        <option value="${typeItem.id}" <c:if test="${typeItem == accident.type}">SELECTED</c:if>>${typeItem.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row mb-2">
             <label class="col-form-label col-sm-1" for="text">Описание</label>
             <div class="col-sm-10">
                 <textarea class="form-control" id="text" name="text" rows="5">${accident.text}</textarea>

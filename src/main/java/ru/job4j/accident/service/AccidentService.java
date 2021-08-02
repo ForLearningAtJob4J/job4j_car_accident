@@ -3,33 +3,53 @@ package ru.job4j.accident.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
+import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.repository.AccidentMem;
+import ru.job4j.accident.repository.AccidentTypeMem;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class AccidentService {
-    private final AccidentMem storage;
+    private final AccidentMem accidents;
+    private final AccidentTypeMem accidentTypes;
 
     @Autowired
-    public AccidentService(AccidentMem storage) {
-        this.storage = storage;
+    public AccidentService(AccidentMem storage, AccidentTypeMem accidentTypes) {
+        this.accidents = storage;
+        this.accidentTypes = accidentTypes;
     }
 
-    public Accident add(Accident accident) {
+    public Accident saveAccident(Accident accident) {
         if (accident.getId() == 0) {
-            return storage.add(accident);
+            return accidents.add(accident);
         } else {
-            return storage.edit(accident);
+            return accidents.edit(accident);
         }
     }
 
-    public Optional<Accident> findById(int id) {
-        return Optional.of(storage.findById(id));
+    public AccidentType saveAccidentType(AccidentType accidentType) {
+        if (accidentType.getId() == 0) {
+            return accidentTypes.add(accidentType);
+        } else {
+            return accidentTypes.edit(accidentType);
+        }
     }
 
-    public List<Accident> getAll() {
-        return storage.getAll();
+    public Optional<Accident> findAccidentById(int id) {
+        return Optional.of(accidents.findById(id));
+    }
+
+    public Optional<AccidentType> findAccidentTypeById(int id) {
+        return Optional.of(accidentTypes.findById(id));
+    }
+
+    public List<Accident> getAllAccidents() {
+        return accidents.getAll();
+    }
+
+    public List<AccidentType> getAllAccidentTypes() {
+        return accidentTypes.getAll();
     }
 }
