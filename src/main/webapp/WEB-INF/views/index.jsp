@@ -13,26 +13,33 @@
     <div>
         <a href="<c:url value='/create'/>">Добавить инцидент</a>
     </div>
-    <table class="table align-content-center table-bordered">
+    <table class="table align-content-center table-bordered table-hover">
         <thead class="table-dark">
         <tr>
             <th scope="col">Название</th>
             <th scope="col">Тип</th>
+            <th scope="col">Статьи</th>
             <th scope="col">Описание</th>
             <th scope="col">Адрес</th>
             <th scope="col"></th>
         </tr>
         </thead>
-        <tbody class="table-hover">
+        <tbody>
         <c:forEach items="${accidents}" var="accident">
             <tr>
                 <td>
                     <c:out value="${accident.name}"/>
                 </td>
                 <td>
-                    <c:out value="${accident.type}"/><br/>
-                    <c:out value="${accident.type.id}"/><br/>
                     <c:out value="${accident.type.name}"/>
+                </td>
+                <td>
+                    <c:forEach var="rule" items="${accident.rules}" varStatus="cnt" >
+                        <c:out value="${rule.name}"/>
+                        <c:if test="${cnt.count != cnt.end}">
+                            <br/>
+                        </c:if>
+                    </c:forEach>
                 </td>
                 <td>
                     <c:out value="${accident.text}"/>

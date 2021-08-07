@@ -24,7 +24,20 @@
             <div class="col-sm-10">
                 <select class="form-select" name="type.id" id="type.id">
                     <c:forEach var="typeItem" items="${accidentTypes}">
-                        <option value="${typeItem.id}" <c:if test="${typeItem == accident.type}">SELECTED</c:if>>${typeItem.name}</option>
+                        <option value="${typeItem.id}"
+                                <c:if test="${typeItem == accident.type}">SELECTED</c:if>>${typeItem.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row mb-2">
+            <label class="col-form-label col-sm-1" for="rIds">Статьи:</label>
+            <div class="col-sm-10">
+                <select name="rIds" id="rIds" multiple>
+                    <c:forEach var="rule" items="${rules}">
+                        <option value="${rule.id}"
+                                <c:if test="${accident.rules.contains(rule)}">SELECTED</c:if>>${rule.name}</option>
                     </c:forEach>
                 </select>
             </div>
