@@ -1,8 +1,7 @@
-package ru.job4j.accident.repository;
+package ru.job4j.accident.repository.mem;
 
 import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
-import ru.job4j.accident.model.AccidentType;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;

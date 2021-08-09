@@ -5,21 +5,21 @@ import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
-import ru.job4j.accident.repository.AccidentMem;
-import ru.job4j.accident.repository.AccidentTypeMem;
-import ru.job4j.accident.repository.RuleMem;
+import ru.job4j.accident.repository.jdbc.AccidentJdbcTemplate;
+import ru.job4j.accident.repository.jdbc.AccidentTypeJdbcTemplate;
+import ru.job4j.accident.repository.jdbc.RuleJdbcTemplate;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class AccidentService {
-    private final AccidentMem accidents;
-    private final AccidentTypeMem accidentTypes;
-    private final RuleMem rules;
+    private final AccidentJdbcTemplate accidents;
+    private final AccidentTypeJdbcTemplate accidentTypes;
+    private final RuleJdbcTemplate rules;
 
     @Autowired
-    public AccidentService(AccidentMem storage, AccidentTypeMem accidentTypes, RuleMem rules) {
+    public AccidentService(AccidentJdbcTemplate storage, AccidentTypeJdbcTemplate accidentTypes, RuleJdbcTemplate rules) {
         this.accidents = storage;
         this.accidentTypes = accidentTypes;
         this.rules = rules;
