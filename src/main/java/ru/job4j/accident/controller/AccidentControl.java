@@ -27,7 +27,7 @@ public class AccidentControl {
         model.addAttribute("accidentTypes", service.getAllAccidentTypes());
         model.addAttribute("rules", service.getAllRules());
         model.addAttribute("accident",
-                new Accident("", "", "", new AccidentType(), new HashSet<>()).setId(0));
+                Accident.of("", "", "", new AccidentType(), new HashSet<>()).setId(0));
         return "accident/edit";
     }
 

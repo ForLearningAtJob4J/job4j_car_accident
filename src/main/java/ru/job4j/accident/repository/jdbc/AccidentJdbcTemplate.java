@@ -8,10 +8,11 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
 
 import java.sql.PreparedStatement;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
-@Repository
+//@Repository
 public class AccidentJdbcTemplate {
     private final JdbcTemplate jdbc;
     private final RowMapper<Accident> rowMapper;
@@ -19,12 +20,12 @@ public class AccidentJdbcTemplate {
     public AccidentJdbcTemplate(JdbcTemplate jdbc, AccidentTypeJdbcTemplate types, RuleJdbcTemplate rules) {
         this.jdbc = jdbc;
 
-        rowMapper = (rs, row) -> new Accident(
+        rowMapper = (rs, row) -> Accident.of(
                 rs.getString("name"),
                 rs.getString("text"),
                 rs.getString("address"),
                 types.findById(rs.getInt("type_id")),
-                rules.getAllByAccidentId(rs.getInt("id")))
+                new HashSet<>(rules.getAllByAccidentId(rs.getInt("id"))))
                 .setId(rs.getInt("id"));
     }
 

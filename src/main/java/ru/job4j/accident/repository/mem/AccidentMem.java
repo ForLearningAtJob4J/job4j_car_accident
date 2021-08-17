@@ -13,11 +13,11 @@ public class AccidentMem {
     private final Map<Integer, Accident> accidents = new HashMap<>();
 
     public AccidentMem(AccidentTypeMem accidentTypeMem, RuleMem rulesMem) {
-        add(new Accident("ДТП №1", "Описание обстоятельств ДТП №1", "перекресток ул. Мира, ул. Ближняя",
+        add(Accident.of("ДТП №1", "Описание обстоятельств ДТП №1", "перекресток ул. Мира, ул. Ближняя",
                 accidentTypeMem.findById(1), Set.of(rulesMem.findById(1))));
-        add(new Accident("ДТП №2", "Описание обстоятельств ДТП №2", "перекресток ул. Мира, ул. Средняя",
+        add(Accident.of("ДТП №2", "Описание обстоятельств ДТП №2", "перекресток ул. Мира, ул. Средняя",
                 accidentTypeMem.findById(2), Set.of(rulesMem.findById(2))));
-        add(new Accident("ДТП №3", "Описание обстоятельств ДТП №3", "перекресток ул. Мира, ул. Крайняя",
+        add(Accident.of("ДТП №3", "Описание обстоятельств ДТП №3", "перекресток ул. Мира, ул. Крайняя",
                 accidentTypeMem.findById(3), Set.of(rulesMem.findById(3))));
     }
 

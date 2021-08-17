@@ -1,26 +1,46 @@
 package ru.job4j.accident.model;
 
-import java.util.Collection;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "accident")
 public class Accident {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String text;
     private String address;
-    private AccidentType type;
-    private final Set<Rule> rules;
 
-    public Accident(String name, String text, String address, AccidentType type, Collection<Rule> rules) {
-        this.name = name;
-        this.text = text;
-        this.address = address;
-        this.type = type;
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private AccidentType type;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "accident_rule",
+            joinColumns = {@JoinColumn(name = "accident_id")},
+            inverseJoinColumns = {@JoinColumn(name = "rule_id")})
+    private Set<Rule> rules;
+
+    public static Accident of(String name, String text, String address, AccidentType type, Set<Rule> rules) {
+        Accident newAccident = new Accident();
+        newAccident.name = name;
+        newAccident.text = text;
+        newAccident.address = address;
+        newAccident.type = type;
+        rules = createRulesIfItIsNull(rules);
+        newAccident.rules = new HashSet<>(rules);
+        return newAccident;
+    }
+
+    private static Set<Rule> createRulesIfItIsNull(Set<Rule> rules) {
         if (rules == null) {
             rules = new HashSet<>();
         }
-        this.rules = new HashSet<>(rules);
+        return rules;
     }
 
     public int getId() {
@@ -101,6 +121,7 @@ public class Accident {
     }
 
     public void addRule(Rule rule) {
-        this.rules.add(rule);
+        this.rules = createRulesIfItIsNull(this.rules);
+        rules.add(rule);
     }
 }

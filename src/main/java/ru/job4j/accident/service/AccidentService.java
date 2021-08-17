@@ -5,21 +5,22 @@ import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
-import ru.job4j.accident.repository.jdbc.AccidentJdbcTemplate;
-import ru.job4j.accident.repository.jdbc.AccidentTypeJdbcTemplate;
-import ru.job4j.accident.repository.jdbc.RuleJdbcTemplate;
+import ru.job4j.accident.repository.hibernate.AccidentHibernate;
+import ru.job4j.accident.repository.hibernate.AccidentTypeHibernate;
+import ru.job4j.accident.repository.hibernate.RuleHibernate;
+
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class AccidentService {
-    private final AccidentJdbcTemplate accidents;
-    private final AccidentTypeJdbcTemplate accidentTypes;
-    private final RuleJdbcTemplate rules;
+    private final AccidentHibernate accidents;
+    private final AccidentTypeHibernate accidentTypes;
+    private final RuleHibernate rules;
 
     @Autowired
-    public AccidentService(AccidentJdbcTemplate storage, AccidentTypeJdbcTemplate accidentTypes, RuleJdbcTemplate rules) {
+    public AccidentService(AccidentHibernate storage, AccidentTypeHibernate accidentTypes, RuleHibernate rules) {
         this.accidents = storage;
         this.accidentTypes = accidentTypes;
         this.rules = rules;
@@ -30,14 +31,6 @@ public class AccidentService {
             return accidents.add(accident);
         } else {
             return accidents.edit(accident);
-        }
-    }
-
-    public AccidentType saveAccidentType(AccidentType accidentType) {
-        if (accidentType.getId() == 0) {
-            return accidentTypes.add(accidentType);
-        } else {
-            return accidentTypes.edit(accidentType);
         }
     }
 
