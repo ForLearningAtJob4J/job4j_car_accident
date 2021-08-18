@@ -23,7 +23,7 @@ public class Accident {
             name = "accident_rule",
             joinColumns = {@JoinColumn(name = "accident_id")},
             inverseJoinColumns = {@JoinColumn(name = "rule_id")})
-    private Set<Rule> rules;
+    private Set<Rule> rules = new HashSet<>();
 
     public static Accident of(String name, String text, String address, AccidentType type, Set<Rule> rules) {
         Accident newAccident = new Accident();
@@ -31,16 +31,10 @@ public class Accident {
         newAccident.text = text;
         newAccident.address = address;
         newAccident.type = type;
-        rules = createRulesIfItIsNull(rules);
-        newAccident.rules = new HashSet<>(rules);
-        return newAccident;
-    }
-
-    private static Set<Rule> createRulesIfItIsNull(Set<Rule> rules) {
-        if (rules == null) {
-            rules = new HashSet<>();
+        if (rules != null) {
+            newAccident.rules = new HashSet<>(rules);
         }
-        return rules;
+        return newAccident;
     }
 
     public int getId() {
@@ -121,7 +115,6 @@ public class Accident {
     }
 
     public void addRule(Rule rule) {
-        this.rules = createRulesIfItIsNull(this.rules);
         rules.add(rule);
     }
 }
