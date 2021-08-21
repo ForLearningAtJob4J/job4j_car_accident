@@ -20,14 +20,7 @@ public class IndexControl {
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("accidents", service.getAllAccidents());
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if ((!(auth instanceof AnonymousAuthenticationToken)) && auth != null) {
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-
-            if (userDetail != null) {
-                model.addAttribute("username", userDetail.getUsername());
-            }
-        }
+        model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return "index";
     }
 }

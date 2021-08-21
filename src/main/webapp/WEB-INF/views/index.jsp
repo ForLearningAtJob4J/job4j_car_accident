@@ -11,7 +11,7 @@
 <body>
 <div class="container pt-3">
     <div class="info d-flex justify-content-end">
-        <span>Пользователь: ${username}</span>=|=<a href="<c:url value='/logout'/>"> Выйти </a>
+        <span>Login as: ${user.username}</span>=|=<a href="<c:url value='/logout'/>"> Выйти </a>
     </div>
     <div>
         <a href="<c:url value='/create'/>">Добавить инцидент</a>
